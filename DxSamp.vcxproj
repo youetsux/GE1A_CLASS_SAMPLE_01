@@ -132,16 +132,20 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CharaBase.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Input.cpp" />
+    <ClCompile Include="NewPlayer.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="theMain.cpp" />
     <ClCompile Include="Vector2D.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CharaBase.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="globals.h" />
     <ClInclude Include="Input.h" />
+    <ClInclude Include="NewPlayer.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Vector2D.h" />
   </ItemGroup>

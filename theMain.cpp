@@ -4,6 +4,7 @@
 //#include "Vector2D.h"
 #include "Player.h"
 #include "Enemy.h"
+#include "NewPlayer.h"
 
 //ファイルの中だけで使えるグローバル変数
 namespace
@@ -14,8 +15,10 @@ namespace
 	float atTime;//フレーム間時間表示用の変数
 	//Vector2D a(5, 0);
 	//Vector2D b(50, 0);
-	Player player("Hero", Vector2D(50, 250), Vector2D(1.0f, 0), 1.0f );
+	//Player player("Hero", Vector2D(50, 250), Vector2D(1.0f, 0), 1.0f );
+	NewPlayer nPlayer("NewHero", Vector2D(50, 250), Vector2D(1.0f, 0), 1.0f);
 	Enemy enemy("Monster", Vector2D(300, 250), Vector2D(-5.0f, 0), 1.0f);
+
 	bool isHitChars = false;//当たり判定フラグ
 	//当たり判定
 	bool IsHit(const Player& p, const Enemy& e) {
