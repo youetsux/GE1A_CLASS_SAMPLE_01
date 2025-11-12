@@ -76,21 +76,22 @@ void Initialize()
 void Update()
 {
 	atTime = gDeltaTime; //ƒtƒŒ[ƒ€ŠÔŽžŠÔ
-	player.Update();
+	//player.Update();
+	nPlayer.Update();
 	enemy.Update();
 
-	isHitChars = IsHit(player, enemy);
-	if (isHitChars)
-	{
-		Vector2D pSP = player.GetSpeed();
-		Vector2D eSP = enemy.GetSpeed();
-		pSP.x = -pSP.x;//x•ûŒü‚Ì‘¬“x‚ð”½“]
-		eSP.x = -eSP.x;//x•ûŒü‚Ì‘¬“x‚ð”½“]
-		player.SetSpeed(pSP);
-		enemy.SetSpeed(eSP);
-		player.Update();
-		enemy.Update();
-	}
+	//isHitChars = IsHit(player, enemy);
+	//if (isHitChars)
+	//{
+	//	Vector2D pSP = player.GetSpeed();
+	//	Vector2D eSP = enemy.GetSpeed();
+	//	pSP.x = -pSP.x;//x•ûŒü‚Ì‘¬“x‚ð”½“]
+	//	eSP.x = -eSP.x;//x•ûŒü‚Ì‘¬“x‚ð”½“]
+	//	player.SetSpeed(pSP);
+	//	enemy.SetSpeed(eSP);
+	//	player.Update();
+	//	enemy.Update();
+	//}
 }
 
 //ƒQ[ƒ€“à—e‚Ì•`‰æ
@@ -100,11 +101,11 @@ void Draw()
 	DrawFormatString(100, 50, GetColor(0, 0, 0), "%8.3lf", atTime);
 
 	//string->char []  .c_str() ‚ðŽg‚¤
-	string pName = player.GetName();
-	Vector2D pPos = player.GetPosition();
+	string pName = nPlayer.GetName();
+	Vector2D pPos = nPlayer.GetPosition();
 	DrawFormatString(100, 80, GetColor(50, 0, 255), "%-8s (%5.2lf, %5.2lf)",
 								pName.c_str(), pPos.x, pPos.y);
-	if (player.GetIsSayHello() == true)
+	if (nPlayer.GetIsSayHello() == true)
 	{
 		DrawFormatString(400, 80, GetColor(0, 0, 0), "Hello!");
 	}
@@ -115,7 +116,7 @@ void Draw()
 								eName.c_str(), ePos.x, ePos.y);
 	DrawFormatString(400, 110, GetColor(0, 0, 0), "%5.2lf", enemy.GetSpeed().x);
 
-	player.Draw();
+	nPlayer.Draw();
 	enemy.Draw();
 	if (isHitChars == true)
 		DrawFormatString(100, 130, GetColor(255, 0, 0), "Hit!");

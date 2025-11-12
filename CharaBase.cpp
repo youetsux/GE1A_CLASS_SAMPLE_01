@@ -44,7 +44,7 @@ string CharaBase::GetName() const
 
 Vector2D CharaBase::GetPosition() const
 {
-    return Vector2D();
+	return pos_;
 }
 
 void CharaBase::SetSpeed(Vector2D speed)
