@@ -75,8 +75,19 @@ void Update()
 	atTime = gDeltaTime; //フレーム間時間
 	player.Update();
 	enemy.Update();
-	isHitChars = IsHit(player, enemy);
 
+	isHitChars = IsHit(player, enemy);
+	if (isHitChars)
+	{
+		Vector2D pSP = player.GetSpeed();
+		Vector2D eSP = enemy.GetSpeed();
+		pSP.x = -pSP.x;//x方向の速度を反転
+		eSP.x = -eSP.x;//x方向の速度を反転
+		player.SetSpeed(pSP);
+		enemy.SetSpeed(eSP);
+		player.Update();
+		enemy.Update();
+	}
 }
 
 //ゲーム内容の描画
