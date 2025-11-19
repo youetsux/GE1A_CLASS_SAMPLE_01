@@ -3,7 +3,7 @@
 #include "input.h"
 //#include "Vector2D.h"
 #include "Player.h"
-#include "Enemy.h"
+#include "NewEnemy.h"
 #include "NewPlayer.h"
 
 //ファイルの中だけで使えるグローバル変数
@@ -17,11 +17,11 @@ namespace
 	//Vector2D b(50, 0);
 	//Player player("Hero", Vector2D(50, 250), Vector2D(1.0f, 0), 1.0f );
 	NewPlayer nPlayer("NewHero", Vector2D(50, 250), Vector2D(1.0f, 0), 1.0f);
-	Enemy enemy("Monster", Vector2D(300, 250), Vector2D(-5.0f, 0), 1.0f);
+	NewEnemy nEnemy("Monster", Vector2D(300, 250), Vector2D(-5.0f, 0), 1.0f);
 
 	bool isHitChars = false;//当たり判定フラグ
 	//当たり判定
-	bool IsHit(const Player& p, const Enemy& e) {
+	bool IsHit(const Player& p, const NewEnemy& e) {
 		float rDist;//半径と半径の和
 		float dist;//中心と中心の距離
 		rDist = p.GetRadius() + e.GetRadius();
@@ -78,7 +78,7 @@ void Update()
 	atTime = gDeltaTime; //フレーム間時間
 	//player.Update();
 	nPlayer.Update();
-	enemy.Update();
+	nEnemy.Update();
 
 	//isHitChars = IsHit(player, enemy);
 	//if (isHitChars)
@@ -110,14 +110,14 @@ void Draw()
 		DrawFormatString(400, 80, GetColor(0, 0, 0), "Hello!");
 	}
 
-	string eName = enemy.GetName();
-	Vector2D ePos = enemy.GetPosition();
+	string eName = nEnemy.GetName();
+	Vector2D ePos = nEnemy.GetPosition();
 	DrawFormatString(100, 110, GetColor(255, 0, 50), "%-8s (%5.2lf, %5.2lf)",
 								eName.c_str(), ePos.x, ePos.y);
-	DrawFormatString(400, 110, GetColor(0, 0, 0), "%5.2lf", enemy.GetSpeed().x);
+	DrawFormatString(400, 110, GetColor(0, 0, 0), "%5.2lf", nEnemy.GetSpeed().x);
 
 	nPlayer.Draw();
-	enemy.Draw();
+	nEnemy.Draw();
 	if (isHitChars == true)
 		DrawFormatString(100, 130, GetColor(255, 0, 0), "Hit!");
 

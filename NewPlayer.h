@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include "CharaBase.h"
 
 
@@ -11,5 +11,5 @@ public:
     void SayHello();
     bool GetIsSayHello() { return isSayHello_; }
 private:
-    bool isSayHello_; //¡ˆ¥A‚ğ‚µ‚Ä‚¢‚é‚©‚Ç‚¤‚©
+    bool isSayHello_; //ä»ŠæŒ¨æ‹¶ã‚’ã—ã¦ã„ã‚‹ã‹ã©ã†ã‹
 };
