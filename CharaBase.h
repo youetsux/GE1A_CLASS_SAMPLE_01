@@ -9,8 +9,8 @@ class CharaBase
 {
 public:
 	CharaBase(string name, Vector2D pos, Vector2D speed, float rudius);//コンストラクタ
-	void Update();//アップデート
-	void Draw();
+	virtual void Update();//アップデート
+	virtual void Draw();
 public:
 	//セッターゲッター
 	void SetName(string name);

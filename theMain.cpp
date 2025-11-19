@@ -16,12 +16,14 @@ namespace
 	//Vector2D a(5, 0);
 	//Vector2D b(50, 0);
 	//Player player("Hero", Vector2D(50, 250), Vector2D(1.0f, 0), 1.0f );
-	NewPlayer nPlayer("NewHero", Vector2D(50, 250), Vector2D(1.0f, 0), 1.0f);
-	NewEnemy nEnemy("Monster", Vector2D(300, 250), Vector2D(-5.0f, 0), 1.0f);
-
+	//NewPlayer nPlayer("NewHero", Vector2D(50, 250), Vector2D(1.0f, 0), 5.0f);
+	//NewEnemy nEnemy("Monster", Vector2D(300, 250), Vector2D(-5.0f, 0), 5.0f);
+	NewPlayer* nPlayer = nullptr; //NewPlayer型へのポインタ
+	NewEnemy* nEnemy = nullptr; // NewEnemy型へのポインタ
+	
 	bool isHitChars = false;//当たり判定フラグ
 	//当たり判定
-	bool IsHit(const Player& p, const NewEnemy& e) {
+	bool IsHit(const NewPlayer& p, const NewEnemy& e) {
 		float rDist;//半径と半径の和
 		float dist;//中心と中心の距離
 		rDist = p.GetRadius() + e.GetRadius();
@@ -34,7 +36,19 @@ namespace
 		else
 			return false;
 	}
-
+	bool IsHit(NewPlayer* p, NewEnemy* e) { //オーバーロード：ポインタ編
+		float rDist;//半径と半径の和
+		float dist;//中心と中心の距離
+		rDist = p->GetRadius() + e->GetRadius();
+		Vector2D ppos = p->GetPosition();
+		Vector2D epos = e->GetPosition();
+		dist = sqrt((ppos.x - epos.x) * (ppos.x - epos.x) +
+			(ppos.y - epos.y) * (ppos.y - epos.y));
+		if (rDist >= dist)
+			return true;
+		else
+			return false;
+	}
 }
 
 
@@ -70,6 +84,9 @@ void MyGame()
 void Initialize()
 {
 	atTime = 0.0f;
+	//ポインタ　= new クラス名(コンストラクタの引数たち); 動的インスタンス生成
+	nPlayer = new NewPlayer("NewHero", Vector2D(50, 250), Vector2D(10.0f, 0), 5.0f);
+	nEnemy = new NewEnemy("newMonster", Vector2D(300, 250), Vector2D(-25.0f, 0), 5.0f);
 }
 
 //ゲーム内容の更新
@@ -77,8 +94,8 @@ void Update()
 {
 	atTime = gDeltaTime; //フレーム間時間
 	//player.Update();
-	nPlayer.Update();
-	nEnemy.Update();
+	nPlayer->Update();
+	nEnemy->Update();
 
 	//isHitChars = IsHit(player, enemy);
 	//if (isHitChars)
@@ -101,24 +118,24 @@ void Draw()
 	DrawFormatString(100, 50, GetColor(0, 0, 0), "%8.3lf", atTime);
 
 	//string->char []  .c_str() を使う
-	string pName = nPlayer.GetName();
-	Vector2D pPos = nPlayer.GetPosition();
+	string pName = nPlayer->GetName();
+	Vector2D pPos = nPlayer->GetPosition();
 	DrawFormatString(100, 80, GetColor(50, 0, 255), "%-8s (%5.2lf, %5.2lf)",
 								pName.c_str(), pPos.x, pPos.y);
-	if (nPlayer.GetIsSayHello() == true)
+	if (nPlayer->GetIsSayHello() == true)
 	{
 		DrawFormatString(400, 80, GetColor(0, 0, 0), "Hello!");
 	}
 
-	string eName = nEnemy.GetName();
-	Vector2D ePos = nEnemy.GetPosition();
+	string eName = nEnemy->GetName();
+	Vector2D ePos = nEnemy->GetPosition();
 	DrawFormatString(100, 110, GetColor(255, 0, 50), "%-8s (%5.2lf, %5.2lf)",
 								eName.c_str(), ePos.x, ePos.y);
-	DrawFormatString(400, 110, GetColor(0, 0, 0), "%5.2lf", nEnemy.GetSpeed().x);
+	DrawFormatString(400, 110, GetColor(0, 0, 0), "%5.2lf", nEnemy->GetSpeed().x);
 
-	nPlayer.Draw();
-	nEnemy.Draw();
-	if (isHitChars == true)
+	nPlayer->Draw();
+	nEnemy->Draw();
+	if (IsHit(nPlayer, nEnemy) == true) //*nPlayerでアドレスの中身＝インスタンスそのもの
 		DrawFormatString(100, 130, GetColor(255, 0, 0), "Hit!");
 
 }

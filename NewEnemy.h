@@ -8,5 +8,7 @@ public:
 	~NewEnemy() {}
 	void SpeedUp();
 	void SpeedDown();
+	void Update() override;
+	void Draw() override;
 };
 

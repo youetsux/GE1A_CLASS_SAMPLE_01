@@ -10,6 +10,8 @@ public:
     ~NewPlayer() {}
     void SayHello();
     bool GetIsSayHello() { return isSayHello_; }
+    void Update() override;
+    void Draw() override;
 private:
     bool isSayHello_; //今挨拶をしているかどうか
 };
