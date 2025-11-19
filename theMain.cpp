@@ -2,9 +2,11 @@
 #include "globals.h"
 #include "input.h"
 //#include "Vector2D.h"
-#include "Player.h"
 #include "NewEnemy.h"
 #include "NewPlayer.h"
+#include <vector>//可変配列
+#include "CharaBase.h"
+
 
 //ファイルの中だけで使えるグローバル変数
 namespace
@@ -20,6 +22,8 @@ namespace
 	//NewEnemy nEnemy("Monster", Vector2D(300, 250), Vector2D(-5.0f, 0), 5.0f);
 	NewPlayer* nPlayer = nullptr; //NewPlayer型へのポインタ
 	NewEnemy* nEnemy = nullptr; // NewEnemy型へのポインタ
+	//std::vector<CharaBase*> charaList; //CharaBase型のポインタを格納する可変配列
+	CharaBase* charaList[2] = { nullptr, nullptr }; //charaBase型のポインタ配列
 	
 	bool isHitChars = false;//当たり判定フラグ
 	//当たり判定
@@ -87,6 +91,8 @@ void Initialize()
 	//ポインタ　= new クラス名(コンストラクタの引数たち); 動的インスタンス生成
 	nPlayer = new NewPlayer("NewHero", Vector2D(50, 250), Vector2D(10.0f, 0), 5.0f);
 	nEnemy = new NewEnemy("newMonster", Vector2D(300, 250), Vector2D(-25.0f, 0), 5.0f);
+	charaList[0] = nPlayer;
+	charaList[1] = nEnemy;
 }
 
 //ゲーム内容の更新
@@ -94,8 +100,13 @@ void Update()
 {
 	atTime = gDeltaTime; //フレーム間時間
 	//player.Update();
-	nPlayer->Update();
-	nEnemy->Update();
+	//nPlayer->Update();
+	//nEnemy->Update();
+	for (int i = 0; i < 2; i++)
+	{
+		charaList[i]->Update(); //ポインタ配列を使ってUpdate呼び出し
+	}
+
 
 	//isHitChars = IsHit(player, enemy);
 	//if (isHitChars)
@@ -133,8 +144,13 @@ void Draw()
 								eName.c_str(), ePos.x, ePos.y);
 	DrawFormatString(400, 110, GetColor(0, 0, 0), "%5.2lf", nEnemy->GetSpeed().x);
 
-	nPlayer->Draw();
-	nEnemy->Draw();
+	//nPlayer->Draw();
+	//nEnemy->Draw();
+	for (int i = 0; i < 2; i++)
+	{
+		charaList[i]->Draw(); //ポインタ配列を使ってUpdate呼び出し
+	}
+
 	if (IsHit(nPlayer, nEnemy) == true) //*nPlayerでアドレスの中身＝インスタンスそのもの
 		DrawFormatString(100, 130, GetColor(255, 0, 0), "Hit!");
 
